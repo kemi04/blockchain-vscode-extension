@@ -126,16 +126,25 @@ export class WalletAndIdentityHelper {
         await vscode.commands.executeCommand(ExtensionCommands.ADD_WALLET_IDENTITY, wallet);
     }
 
+<<<<<<< HEAD
     private async setIdentityStubs(method: string, identityName: string, mspid: string): Promise<void> {
         this.userInputUtilHelper.inputBoxStub.withArgs('Provide a name for the identity').resolves(identityName);
+=======
+    private setIdentityStubs(method: string, identityName: string, mspid: string): void {
+>>>>>>> 0fd55ed3... Add identity command updated (#2592)
         this.userInputUtilHelper.inputBoxStub.withArgs('Enter MSPID').resolves(mspid);
 
         if (method === 'certs') {
             this.userInputUtilHelper.showAddIdentityMethodStub.resolves(UserInputUtil.ADD_CERT_KEY_OPTION);
+<<<<<<< HEAD
             this.userInputUtilHelper.showGetCertKeyStub.resolves({
                 certificatePath: this.certPath,
                 privateKeyPath: this.keyPath
             });
+=======
+            this.userInputUtilHelper.inputBoxStub.withArgs('Provide a name for the identity').resolves(identityName);
+            this.userInputUtilHelper.showGetCertKeyStub.resolves({ certificatePath: WalletAndIdentityHelper.certPath, privateKeyPath: WalletAndIdentityHelper.keyPath });
+>>>>>>> 0fd55ed3... Add identity command updated (#2592)
         } else if (method === 'JSON file') {
             const jsonPath: string = process.env.OPSTOOLS_FABRIC ? path.join(process.env.JSON_DIR, `${identityName}.json`) : this.jsonFilePath;
             this.userInputUtilHelper.showAddIdentityMethodStub.resolves(UserInputUtil.ADD_JSON_ID_OPTION);
@@ -143,7 +152,13 @@ export class WalletAndIdentityHelper {
         } else {
             // use enroll id and secret
             this.userInputUtilHelper.showAddIdentityMethodStub.resolves(UserInputUtil.ADD_ID_SECRET_OPTION);
+<<<<<<< HEAD
             const gatewayRegistryEntry: FabricGatewayRegistryEntry = await FabricGatewayRegistry.instance().get('myGateway');
+=======
+            this.userInputUtilHelper.inputBoxStub.withArgs('Provide a name for the identity').resolves(identityName);
+            const gatewayRegistryEntry: FabricGatewayRegistryEntry = new FabricGatewayRegistryEntry();
+            gatewayRegistryEntry.name = 'myGateway';
+>>>>>>> 0fd55ed3... Add identity command updated (#2592)
 
             this.userInputUtilHelper.showGatewayQuickPickStub.resolves({data: gatewayRegistryEntry});
             this.userInputUtilHelper.getEnrollIdSecretStub.resolves({

@@ -160,6 +160,7 @@ Feature: Fabric Environments
       | Organizations               | org1msp                                     | org1msp                                                                                |
       | Organizations               | org2msp                                     | org2msp                                                                                |
 
+<<<<<<< HEAD
   @opsToolsFabric
   Scenario Outline: It should connect to a SaaS environment
     Given an environment 'mySaaSOpsToolsFabric' of type 'SaaS' exists
@@ -184,6 +185,21 @@ Feature: Fabric Environments
       | Node                        | Peer Org1                                      | Name: Peer Org1\\nMSPID: org1msp\\nAssociated Identity:\\nSaaSOrg1MSPAdmin                 |
       | Organizations               | osmsp                                          | osmsp                                                                                      |
       | Organizations               | org1msp                                        | org1msp                                                                                    |
+=======
+    @otherFabric
+    Scenario Outline: It should associate nodes with identities
+        Given an environment 'myFabric' exists
+        And the wallet 'myWallet' with identity 'conga' and mspid 'Org1MSP' exists
+        And the 'myFabric' environment is connected
+        When I associate identity '<identity>' in wallet '<wallet>' with node '<name>'
+        Then the logger should have been called with 'INFO', 'undefined' and 'addWalletIdentity'
+        Then the log should have been called with 'SUCCESS' and 'Successfully associated identity <identity> from wallet <wallet> with node <name>'
+        Examples:
+        | name                    | wallet   | identity |
+        | peer0.org1.example.com  | myWallet | conga    |
+        | orderer.example.com     | myWallet | conga    |
+        | ca.example.com          | myWallet | conga2   |
+>>>>>>> 0fd55ed3... Add identity command updated (#2592)
 
   @opsToolsFabric
   Scenario: It should hide nodes on a software environment
